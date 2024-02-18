@@ -1,4 +1,4 @@
-This is the command line for the win project.\
+This is the command line for the win project.<br />
 
 These are the steps taken to use the SFTP command-line tool in this project:  
 1- Establish an SFTP session by issuing the following command:  
