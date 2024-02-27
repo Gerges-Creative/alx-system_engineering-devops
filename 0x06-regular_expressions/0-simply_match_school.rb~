@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+regex = ARGV
+
+match_s = /(school)/.match("school best school")
+
+if match_s == true
+  puts(match_s[0])
+end
