@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# This script displays "To infinity and beyound" with a 2 sec pause between
+# each iteration
+
+while true
+do
+	echo "To infinity and beyound"
+	sleep 2
+done
