@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script displays the current active IP addresses on this machine
+
+ifconfig | grep -oE "inet [0-9.]+ " | cut -d" " -f2
