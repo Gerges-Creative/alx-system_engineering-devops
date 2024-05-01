@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Debugging nginx installation
+
+sudo service nginx start
