@@ -1,32 +1,9 @@
 #!/usr/bin/env bash
 # Script that installs Nginx server, redirects /redirect_me and customizes 404 not found
 
-# Update package lists and install nginx
-sudo apt-get update
-sudo apt-get install -y nginx
-
-# Replace the content of the default Nginx page
-echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
-
-# Create the custom 404 error page
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
-
-# Create a backup of the default configuration file
-sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
-
-# Configure Nginx to serve the custom 404 page
-sudo sed -i '/server {/a \    error_page 404 /404.html;\n    location = /404.html {\n        internal;\n    }' /etc/nginx/sites-available/default
-
-# Ensure the default configuration is pointing to /var/www/html
-sudo sed -i 's|root /var/www/html;|root /var/www/html;|' /etc/nginx/sites-available/default
-
-# Start nginx without using systemctl
-sudo service nginx start
-
-# Check if nginx is running and listening on port 80
-if sudo netstat -tulnp | grep ':80' | grep nginx; then
-  echo "Nginx is running and listening on port 80"
-else
-  echo "Failed to start Nginx"
-  exit 1
-fi
+apt-get -y update
+apt-get -y install nginx
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
+sed -i "s/server_name _;/server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/luischaparroc permanent;\n\n\terror_page 404 \/custom_404.html;\n\tlocation = \/custom_404.html {\n\t\troot \/usr\/share\/nginx\/html;\n\t\tinternal;\n\t}/" /etc/nginx/sites-available/default
+service nginx start
