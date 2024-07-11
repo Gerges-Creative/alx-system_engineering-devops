@@ -13,7 +13,7 @@ def number_of_subscribers(subreddit):
     path = '/r/{}/about.json'.format(subreddit)
     url = '{}{}'.format(domain, path)
     header = {
-        'user-agent': 'DealerOdd6515',
+        'user-agent': 'linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)',
         'over18': 'yes'
     }
     response = requests.get(
