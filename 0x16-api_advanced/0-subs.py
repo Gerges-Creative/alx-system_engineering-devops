@@ -1,28 +1,29 @@
 #!/usr/bin/python3
-"""Module to query Reddit API for the number of subscribers in a subreddit."""
-
+"""
+0-subs.py queries to https://www.reddit.com/dev/api/
+"""
 import requests
 
 
 def number_of_subscribers(subreddit):
-
-    """Queries the Reddit API and returns the number of subscribers."""
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    headers = {"User-Agent": "My-User-Agent"}
-
-    response = requests.get(url, headers=headers, allow_redirects=False)
-
-    if response.status_code != 200:
-        print("Error: Received status code {}".format(response.status_code))
+    """
+    returns the number of subscribers
+    """
+    domain = 'https://www.reddit.com'
+    path = '/r/{}/about.json'.format(subreddit)
+    url = '{}{}'.format(domain, path)
+    header = {
+        'user-agent': 'DealerOdd6515',
+        'over18': 'yes'
+    }
+    response = requests.get(
+        url,
+        headers=header,
+        allow_redirects=False
+    )
+    code = response.status_code
+    if code >= 300:
         return 0
-
-    try:
-        data = response.json().get("data")
-        if data:
-            return data.get("subscribers", 0)
-        else:
-            print("Error: 'data' field is missing in the response.")
-            return 0
-    except ValueError:
-        print("Error: Unable to parse JSON response.")
-        return 0
+    data = response.json().get('data')
+    subscribers = data.get('subscribers')
+    return subscribers
