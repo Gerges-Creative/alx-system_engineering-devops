@@ -11,20 +11,26 @@ def number_of_subscribers(subreddit):
     """
     domain = 'https://www.reddit.com'
     path = f'/r/{subreddit}/about.json'
-    url = '{}{}'.format(domain, path)
-    header = {
-        'user-agent': 'request',
+    url = f'{domain}{path}'
+    headers = {
+        'User-Agent': 'my-app/0.0.1',
         'over18': 'yes'
     }
-    response = requests.get(
-        url,
-        headers=header,
-        allow_redirects=False
-    )
-    code = response.status_code
-    if code >= 300:
-        return 0
 
-    data = response.json().get('data')
-    subscribers = data.get('subscribers')
-    return subscribers
+    try:
+        response = requests.get(
+            url,
+            headers=headers,
+            allow_redirects=False
+        )
+        response.raise_for_status() #Raises HTTPError for bad responses (4xx and 5xx)
+
+        data = response.json().get('data')
+        if data:
+            subscribers = data.get('subscribers')
+            return subscribers
+        else:
+            return 'No Data Found'
+
+    except requests.exceptions.RequestException as e:
+        return f'Error: {e}'
