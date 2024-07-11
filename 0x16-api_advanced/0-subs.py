@@ -9,12 +9,11 @@ def number_of_subscribers(subreddit):
     """
     returns the number of subscribers
     """
-    domain = 'https://www.reddit.com'
+    domain = f'https://www.reddit.com'
     path = f'/r/{subreddit}/about.json'
     url = f'{domain}{path}'
     headers = {
-        'User-Agent': 'my-app/0.0.1',
-        'over18': 'yes'
+        'User-Agent': 'MyRedditApp/0.1 by DealerOdd6515'
     }
 
     try:
@@ -23,14 +22,15 @@ def number_of_subscribers(subreddit):
             headers=headers,
             allow_redirects=False
         )
-        response.raise_for_status() #Raises HTTPError for bad responses (4xx and 5xx)
+        # Raises HTTPError for bad responses (4xx and 5xx)
+        response.raise_for_status()
 
         data = response.json().get('data')
         if data:
             subscribers = data.get('subscribers')
             return subscribers
         else:
-            return 'No Data Found'
+            return 0
 
     except requests.exceptions.RequestException as e:
-        return f'Error: {e}'
+        return 0
