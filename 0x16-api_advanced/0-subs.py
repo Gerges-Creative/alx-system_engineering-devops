@@ -1,30 +1,28 @@
-#!/usr/bin/python3
-"""Module for task 0"""
 
-import requests
+#!/usr/bin/python3
+"""
+number of subscribers for a given subreddit
+"""
+
+from requests import get
+
 
 def number_of_subscribers(subreddit):
-    """Queries the Reddit API and returns the number of subscribers
-    to the subreddit"""
-    # Define the URL for the subreddit info
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    # Set a custom User-Agent to avoid being blocked by Reddit
-    headers = {"User-Agent": "My-User-Agent"}
+    """
+    function that queries the Reddit API and returns the number of subscribers
+    (not active users, total subscribers) for a given subreddit.
+    """
 
-    # Make the GET request to the Reddit API
-    response = requests.get(url, headers=headers, allow_redirects=False)
-
-    # Check if the request was successful
-    if response.status_code == 200:
-        # Parse the JSON response
-        data = response.json().get("data")
-        # Return the number of subscribers
-        return data.get("subscribers", 0)
-    else:
-        # If the request was not successful, return 0
+    if subreddit is None or not isinstance(subreddit, str):
         return 0
 
-# Example usage:
-if __name__ == "__main__":
-    subreddit = "learnpython"
-    print("Number of subscribers:", number_of_subscribers(subreddit))
+    user_agent = {'User-agent': 'Google Chrome Version 81.0.4044.129'}
+    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
+    response = get(url, headers=user_agent)
+    results = response.json()
+
+    try:
+        return results.get('data').get('subscribers')
+
+    except Exception:
+        return 0
