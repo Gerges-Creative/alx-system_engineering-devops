@@ -13,7 +13,7 @@ def number_of_subscribers(subreddit):
     path = f'/r/{subreddit}/about.json'
     url = f'{domain}{path}'
     headers = {
-        'User-Agent': 'MyRedditApp/0.1 by DealerOdd6515'
+        'User-Agent': 'MyRedditApp/0.1 by Gerges_Z'
     }
 
     try:
