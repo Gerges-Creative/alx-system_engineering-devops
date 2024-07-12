@@ -9,9 +9,7 @@ def number_of_subscribers(subreddit):
     """
     returns the number of subscribers
     """
-    domain = 'https://www.reddit.com'
-    path = '/r/{}/about.json'.format(subreddit)
-    url = '{}{}'.format(domain, path)
+    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
     header = {
         'user-agent': 'Gerges_Z',
         'over18': 'yes'
