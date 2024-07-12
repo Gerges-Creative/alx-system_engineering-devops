@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 """
 queries to https://www.reddit.com/dev/api/
