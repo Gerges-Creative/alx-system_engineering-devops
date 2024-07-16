@@ -8,7 +8,7 @@ This README.md file documents the postmortem analysis of an incident that occurr
 
 ## Diagram
 
-![Example Diagram](path/to/your/diagram.png)
+![Example Diagram](images/Detection.png)
 
 ---
 
